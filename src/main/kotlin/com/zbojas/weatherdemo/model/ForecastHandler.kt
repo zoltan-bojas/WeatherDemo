@@ -6,10 +6,11 @@ import com.google.gson.Gson
 import com.zbojas.weatherdemo.view.forecastResponse.Daily
 import com.zbojas.weatherdemo.model.forecast.ForecastData
 import com.zbojas.weatherdemo.view.forecastResponse.ForecastResponse
+import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
-
-class ForecastHandler(private val client : WebClient) {
+@Component
+class ForecastHandler (private val client : WebClient) {
 
         fun getForecast(): Mono<ForecastResponse> {
             return client.get().uri("/gridpoints/MLB/33,70/forecast").retrieve().bodyToMono(String::class.java).map{res->mapStringToForecastResponse(res)}
