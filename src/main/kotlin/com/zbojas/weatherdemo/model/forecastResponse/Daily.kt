@@ -1,4 +1,4 @@
-package com.zbojas.weatherdemo.view.forecastResponse
+package com.zbojas.weatherdemo.model.forecastResponse
 
 data class Daily(
     val day_name: String,

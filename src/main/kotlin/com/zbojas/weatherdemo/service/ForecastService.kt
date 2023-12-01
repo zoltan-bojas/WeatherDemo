@@ -1,19 +1,22 @@
-package com.zbojas.weatherdemo.model
+package com.zbojas.weatherdemo.service
 
 import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
 import com.google.gson.Gson
-import com.zbojas.weatherdemo.view.forecastResponse.Daily
+import com.zbojas.weatherdemo.model.forecastResponse.Daily
 import com.zbojas.weatherdemo.model.forecast.ForecastData
-import com.zbojas.weatherdemo.view.forecastResponse.ForecastResponse
-import org.springframework.stereotype.Component
+import com.zbojas.weatherdemo.model.forecastResponse.ForecastResponse
+import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
-@Component
-class ForecastHandler (private val client : WebClient) {
+@Service
+class ForecastService (private val client : WebClient) {
 
         fun getForecast(): Mono<ForecastResponse> {
-            return client.get().uri("/gridpoints/MLB/33,70/forecast").retrieve().bodyToMono(String::class.java).map{res->mapStringToForecastResponse(res)}
+            return client.get().uri("/gridpoints/MLB/33,70/forecast")
+                    .retrieve()
+                    .bodyToMono(String::class.java)
+                    .map{ res->mapStringToForecastResponse(res)}
         }
 
         private fun mapStringToForecastResponse(string:String): ForecastResponse {

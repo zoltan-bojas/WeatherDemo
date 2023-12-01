@@ -1,4 +1,4 @@
-package com.zbojas.weatherdemo.model
+package com.zbojas.weatherdemo.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
