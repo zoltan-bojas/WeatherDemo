@@ -7,6 +7,8 @@ import com.zbojas.weatherdemo.model.forecastResponse.Daily
 import com.zbojas.weatherdemo.model.forecast.ForecastData
 import com.zbojas.weatherdemo.model.forecastResponse.ForecastResponse
 import org.springframework.stereotype.Service
+import reactor.util.retry.Retry
+import java.time.Duration
 import java.time.LocalDateTime
 
 @Service
@@ -16,6 +18,7 @@ class ForecastService (private val client : WebClient) {
             return client.get().uri("/gridpoints/MLB/33,70/forecast")
                     .retrieve()
                     .bodyToMono(String::class.java)
+                    .retryWhen(Retry.backoff (3, Duration.ofSeconds(2)))
                     .map{ res->mapStringToForecastResponse(res)}
         }
 
